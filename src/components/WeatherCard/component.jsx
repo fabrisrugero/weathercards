@@ -1,6 +1,6 @@
 import React from "react";
 import Icon from "./Icon";
-import Location from "./Location";
+import DayOfWeek from "./DayOfWeek";
 import Condition from "./Condition";
 import styled from "@emotion/styled";
 
@@ -38,7 +38,10 @@ const getBG = (colors) => {
   }
 };
 
-const WeatherCard = ({ temp }) => {
+const WeatherCard = ({ stats }) => {
+  console.log(stats);
+  const { temp, weather, dt } = stats;
+  const { day } = temp;
   const Card = styled.div`
     width: 200px;
     height: 240px;
@@ -49,13 +52,13 @@ const WeatherCard = ({ temp }) => {
     border-radius: 15px;
     flex-direction: column;
     justify-content: space-around;
-    background: ${getBG(calcTemp(temp))};
+    background: ${getBG(calcTemp(day))};
   `;
   return (
     <Card>
-      <Location />
-      <Icon />
-      <Condition />
+      <DayOfWeek dt={dt} />
+      <Icon weather={weather[0]} />
+      <Condition temp={temp} weather={weather[0]} />
     </Card>
   );
 };
